@@ -409,7 +409,6 @@ pub struct CreateWhiteList<'info> {
         minting_account.key().as_ref(),
         user.as_ref(),
     ],
-    bump,
     payer = admin,
     space = 112,
     )]
