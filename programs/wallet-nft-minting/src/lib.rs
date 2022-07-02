@@ -107,13 +107,11 @@ pub mod wallet_nft_mint {
     pub fn remove_wl_list(
         ctx: Context<RemoveWhiteList>,
     ) -> ProgramResult {
-        
-        ctx.accounts.whitelist.close(ctx.accounts.initializer.to_account_info())?;
 
         ctx.accounts
-                .sell_order
-                .close(ctx.accounts.authority.to_account_info())?;
-                
+                .whitelist
+                .close(ctx.accounts.initializer.to_account_info())?;
+
         Ok(())
     }
 
