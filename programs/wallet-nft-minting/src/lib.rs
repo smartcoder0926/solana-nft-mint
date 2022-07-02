@@ -43,52 +43,6 @@ pub mod wallet_nft_mint {
     }
 
     #[access_control(is_admin(&ctx.accounts.minting_account, &ctx.accounts.admin))]
-    pub fn add_og_list(
-        ctx: Context<CommonSt>,
-        _nonce_minting: u8,
-        new_og_list: Vec<Pubkey>,
-    ) -> ProgramResult {
-        for new_og in new_og_list.iter() {
-            if ctx
-                .accounts
-                .minting_account
-                .og_list
-                .iter()
-                .find(|&og| og == new_og)
-                == None
-            {
-                ctx.accounts.minting_account.og_list.push(*new_og);
-            }
-        }
-
-        Ok(())
-    }
-
-    #[access_control(is_admin(&ctx.accounts.minting_account, &ctx.accounts.admin))]
-    pub fn remove_og_list(
-        ctx: Context<CommonSt>,
-        _nonce_minting: u8,
-        old_og_list: Vec<Pubkey>,
-    ) -> ProgramResult {
-        for old_og in old_og_list.iter() {
-            match ctx
-                .accounts
-                .minting_account
-                .og_list
-                .iter()
-                .position(|og| og == old_og)
-            {
-                Some(index) => {
-                    ctx.accounts.minting_account.og_list.remove(index);
-                }
-                None => {}
-            }
-        }
-
-        Ok(())
-    }
-
-    #[access_control(is_admin(&ctx.accounts.minting_account, &ctx.accounts.admin))]
     pub fn add_wl_list(
         ctx: Context<CreateWhiteList>,
         user: Pubkey,
@@ -190,21 +144,6 @@ pub mod wallet_nft_mint {
         let mut _state = 2; // public
 
         if ctx.accounts.minting_account.cur_stage == 1 {
-            // WL
-            match ctx
-                .accounts
-                .minting_account
-                .og_list
-                .iter()
-                .position(|og| *og == ctx.accounts.payer.key())
-            {
-                Some(_index) => {
-                    _max_num = ctx.accounts.minting_account.og_max;
-                    _price = ctx.accounts.minting_account.og_price;
-                    _state = 1; // WL
-                }
-                None => {}
-            }
 
             if ctx.accounts.whitelist.count == 1 {
                 _max_num = ctx.accounts.minting_account.wl_max;
@@ -345,7 +284,7 @@ pub struct Initialize<'info> {
         payer = initializer,
         seeds = [ constants::MINTING_PDA_SEED.as_ref() ],
         bump = _nonce_minting,
-        space = 32 * 10 + 32 * 3 * 50
+        space = 8 + 32 * 3 + 8 * 8 + 1 + 8 + 50
         // space = 308000
     )]
     pub minting_account: Box<Account<'info, MintingAccount>>,
@@ -362,7 +301,6 @@ pub struct Initialize<'info> {
 #[derive(Default)]
 pub struct MintingAccount {
     pub admin_key: Pubkey,
-    pub freeze_program: bool,
     pub aury_vault: Pubkey,
     pub authorized_creator: Pubkey,
     pub max_supply: u64,
@@ -372,10 +310,8 @@ pub struct MintingAccount {
     pub og_price: u64,
     pub wl_price: u64,
     pub public_price: u64,
-    pub og_list: Vec<Pubkey>,
-    pub wl_list: Vec<Pubkey>,
-    pub public_list: Vec<Pubkey>,
     pub cur_num: u64,
+    pub freeze_program: bool,
     pub cur_stage: i8,
     pub base_uri: String,
 }
@@ -403,8 +339,15 @@ pub struct CreateWhiteList<'info> {
 
     #[account(
     init,
+    seeds = [
+        "nftminting".as_bytes(),
+        "whitelist".as_bytes(),
+        minting_account.key().as_ref(),
+        user.as_ref(),
+    ],
+    bump,
     payer = admin,
-    space = 112,
+    space = 8 + 32 * 3 + 8,
     )]
     whitelist: Account<'info, WhiteList>,
 
@@ -486,6 +429,7 @@ pub struct MintNFT<'info> {
         payer = payer,
         seeds = [ payer.key().as_ref() ],
         bump,
+        space = 8 + 8
     )]
     pub user_minting_counter_account: Box<Account<'info, UserMintingAccount>>,
     pub system_program: Program<'info, System>,
