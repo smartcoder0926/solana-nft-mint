@@ -1,7 +1,7 @@
 anchor_version = "0.19.0"
 
 [programs.devnet]
-wallet_nft_mint = "2oSArBTstkKKkhrPPTJC4PXSou3zUPPmTTemQJqYnjAc"
+wallet_nft_mint = "BfkwLq6tGq2CFw24kQJK5ZxZfBMTnv8a4vKQq76pEpRk"
 
 [registry]
 url = "https://anchor.projectserum.com"
