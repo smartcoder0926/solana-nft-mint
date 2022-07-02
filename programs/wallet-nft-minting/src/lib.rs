@@ -110,6 +110,10 @@ pub mod wallet_nft_mint {
         
         ctx.accounts.whitelist.close(ctx.accounts.initializer.to_account_info())?;
 
+        ctx.accounts
+                .sell_order
+                .close(ctx.accounts.authority.to_account_info())?;
+                
         Ok(())
     }
 
@@ -401,8 +405,8 @@ pub struct CreateWhiteList<'info> {
     #[account(
     init,
     seeds = [
-        "nftminting",
-        "whitelist",
+        "nftminting".as_bytes(),
+        "whitelist".as_bytes(),
         minting_account.key().as_ref(),
         user.as_ref(),
     ],
