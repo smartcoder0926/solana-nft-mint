@@ -415,7 +415,6 @@ pub struct MintNFT<'info> {
     #[account(
         mut,
         seeds = [ constants::MINTING_PDA_SEED.as_ref() ],
-        bump,
         constraint = !minting_account.freeze_program,
     )]
     pub minting_account: Box<Account<'info, MintingAccount>>,
