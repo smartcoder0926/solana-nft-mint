@@ -1,0 +1,18 @@
+anchor_version = "0.19.0"
+
+[programs.devnet]
+wallet_nft_mint = "DiF6iZ6pDRifTMS9ETEvGTUQ6KZvmSZpmn6NAEMVaVED"
+
+[registry]
+url = "https://anchor.projectserum.com"
+
+[provider]
+cluster = "devnet"
+wallet = "/home/flo/.config/solana/ds-cm.json"
+
+[scripts]
+test = "ts-mocha --debug -p ./tsconfig.json -t 1000000 tests/**/*.ts"
+
+[[test.genesis]]
+address = "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s"
+program = "./deps/metadata.so"
