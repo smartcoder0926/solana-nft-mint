@@ -6,7 +6,7 @@ use anchor_spl::token;
 use anchor_spl::token::{MintTo, Token};
 use mpl_token_metadata::instruction::{create_master_edition_v3, create_metadata_accounts_v2};
 
-declare_id!("8jt7k7MfEse3f5fLcPZqDJqod6J3kjAdZBd86gZcCSgu");
+declare_id!("2oSArBTstkKKkhrPPTJC4PXSou3zUPPmTTemQJqYnjAc");
 pub mod constants {
     pub const MINTING_PDA_SEED: &[u8] = b"wallet_nft_minting";
 }
