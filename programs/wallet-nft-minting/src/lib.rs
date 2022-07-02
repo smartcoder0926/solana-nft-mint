@@ -403,12 +403,6 @@ pub struct CreateWhiteList<'info> {
 
     #[account(
     init,
-    seeds = [
-        "nftminting".as_bytes(),
-        "whitelist".as_bytes(),
-        minting_account.key().as_ref(),
-        user.as_ref(),
-    ],
     payer = admin,
     space = 112,
     )]
