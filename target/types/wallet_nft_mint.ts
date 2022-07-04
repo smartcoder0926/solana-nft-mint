@@ -71,6 +71,83 @@ export type WalletNftMint = {
       ]
     },
     {
+      "name": "addOgList",
+      "accounts": [
+        {
+          "name": "admin",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "mintingAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "ogList",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "user",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "removeOgList",
+      "accounts": [
+        {
+          "name": "initializer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "mintingAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "ogList",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
       "name": "addWlList",
       "accounts": [
         {
@@ -84,7 +161,7 @@ export type WalletNftMint = {
           "isSigner": false
         },
         {
-          "name": "whitelist",
+          "name": "wlList",
           "isMut": true,
           "isSigner": true
         },
@@ -125,7 +202,7 @@ export type WalletNftMint = {
           "isSigner": false
         },
         {
-          "name": "whitelist",
+          "name": "wlList",
           "isMut": true,
           "isSigner": false
         },
@@ -312,7 +389,12 @@ export type WalletNftMint = {
           "isSigner": false
         },
         {
-          "name": "whitelist",
+          "name": "wlList",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "ogList",
           "isMut": true,
           "isSigner": false
         },
@@ -427,7 +509,7 @@ export type WalletNftMint = {
       }
     },
     {
-      "name": "whiteList",
+      "name": "accountList",
       "type": {
         "kind": "struct",
         "fields": [
@@ -548,6 +630,83 @@ export const IDL: WalletNftMint = {
       ]
     },
     {
+      "name": "addOgList",
+      "accounts": [
+        {
+          "name": "admin",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "mintingAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "ogList",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "user",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "removeOgList",
+      "accounts": [
+        {
+          "name": "initializer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "mintingAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "ogList",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
       "name": "addWlList",
       "accounts": [
         {
@@ -561,7 +720,7 @@ export const IDL: WalletNftMint = {
           "isSigner": false
         },
         {
-          "name": "whitelist",
+          "name": "wlList",
           "isMut": true,
           "isSigner": true
         },
@@ -602,7 +761,7 @@ export const IDL: WalletNftMint = {
           "isSigner": false
         },
         {
-          "name": "whitelist",
+          "name": "wlList",
           "isMut": true,
           "isSigner": false
         },
@@ -789,7 +948,12 @@ export const IDL: WalletNftMint = {
           "isSigner": false
         },
         {
-          "name": "whitelist",
+          "name": "wlList",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "ogList",
           "isMut": true,
           "isSigner": false
         },
@@ -904,7 +1068,7 @@ export const IDL: WalletNftMint = {
       }
     },
     {
-      "name": "whiteList",
+      "name": "accountList",
       "type": {
         "kind": "struct",
         "fields": [

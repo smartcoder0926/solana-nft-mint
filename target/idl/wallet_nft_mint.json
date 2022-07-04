@@ -71,6 +71,83 @@
       ]
     },
     {
+      "name": "addOgList",
+      "accounts": [
+        {
+          "name": "admin",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "mintingAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "ogList",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "user",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "removeOgList",
+      "accounts": [
+        {
+          "name": "initializer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "mintingAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "ogList",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
       "name": "addWlList",
       "accounts": [
         {
@@ -84,7 +161,7 @@
           "isSigner": false
         },
         {
-          "name": "whitelist",
+          "name": "wlList",
           "isMut": true,
           "isSigner": true
         },
@@ -125,7 +202,7 @@
           "isSigner": false
         },
         {
-          "name": "whitelist",
+          "name": "wlList",
           "isMut": true,
           "isSigner": false
         },
@@ -312,7 +389,12 @@
           "isSigner": false
         },
         {
-          "name": "whitelist",
+          "name": "wlList",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "ogList",
           "isMut": true,
           "isSigner": false
         },
@@ -427,7 +509,7 @@
       }
     },
     {
-      "name": "WhiteList",
+      "name": "AccountList",
       "type": {
         "kind": "struct",
         "fields": [
