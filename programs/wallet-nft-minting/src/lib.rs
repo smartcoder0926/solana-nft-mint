@@ -316,6 +316,8 @@ pub struct Initialize<'info> {
     #[account(
         init_if_needed,
         payer = initializer,
+        seeds = [ constants::MINTING_PDA_SEED.as_ref() ],
+        bump = _nonce_minting,
         space = 8 + 32 * 3 + 8 * 8 + 1 + 8 + 50
         // space = 308000
     )]
