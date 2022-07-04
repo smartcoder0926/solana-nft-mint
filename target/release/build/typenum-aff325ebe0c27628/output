@@ -1,2 +1,0 @@
-cargo:rustc-env=TYPENUM_BUILD_CONSTS=/root/rru/solana-nft-mint/target/release/build/typenum-aff325ebe0c27628/out/consts.rs
-cargo:rustc-env=TYPENUM_BUILD_OP=/root/rru/solana-nft-mint/target/release/build/typenum-aff325ebe0c27628/out/op.rs
