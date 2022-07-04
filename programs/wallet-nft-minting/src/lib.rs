@@ -374,8 +374,8 @@ pub struct CreateWhiteList<'info> {
     payer = admin,
     space = 8 + 32 * 3 + 8,
     seeds = [
-        "nftminting",
-        "whitelist",
+        "nftminting".as_bytes(),
+        "whitelist".as_bytes(),
         minting_account.key().as_ref(),
         user.as_ref(),
     ],
