@@ -163,7 +163,7 @@
         {
           "name": "wlList",
           "isMut": true,
-          "isSigner": true
+          "isSigner": false
         },
         {
           "name": "systemProgram",
