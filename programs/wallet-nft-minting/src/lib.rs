@@ -316,9 +316,7 @@ pub struct Initialize<'info> {
     #[account(
         init_if_needed,
         payer = initializer,
-        seeds = [ constants::MINTING_PDA_SEED.as_ref() ],
-        bump = _nonce_minting,
-        space = 8 + 32 * 3 + 8 * 8 + 1 + 8 + 50,
+        space = 8 + 32 * 3 + 8 * 8 + 1 + 8 + 50
         // space = 308000
     )]
     pub minting_account: Box<Account<'info, MintingAccount>>,
@@ -508,8 +506,7 @@ pub struct MintNFT<'info> {
     #[account(
         init_if_needed,
         payer = payer,
-        seeds = [ payer.key().as_ref() ],
-        bump,
+        space = 8 + 8,
     )]
     pub user_minting_counter_account: Box<Account<'info, UserMintingAccount>>,
     pub system_program: Program<'info, System>,
