@@ -86,7 +86,7 @@
         {
           "name": "ogList",
           "isMut": true,
-          "isSigner": true
+          "isSigner": false
         },
         {
           "name": "systemProgram",
