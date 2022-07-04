@@ -8,7 +8,7 @@
         {
           "name": "mintingAccount",
           "isMut": true,
-          "isSigner": true
+          "isSigner": false
         },
         {
           "name": "initializer",
@@ -32,10 +32,6 @@
         }
       ],
       "args": [
-        {
-          "name": "nonceMinting",
-          "type": "u8"
-        },
         {
           "name": "authorizedCreator",
           "type": "publicKey"

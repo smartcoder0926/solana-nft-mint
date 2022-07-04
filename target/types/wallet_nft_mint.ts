@@ -8,7 +8,7 @@ export type WalletNftMint = {
         {
           "name": "mintingAccount",
           "isMut": true,
-          "isSigner": true
+          "isSigner": false
         },
         {
           "name": "initializer",
@@ -32,10 +32,6 @@ export type WalletNftMint = {
         }
       ],
       "args": [
-        {
-          "name": "nonceMinting",
-          "type": "u8"
-        },
         {
           "name": "authorizedCreator",
           "type": "publicKey"
@@ -567,7 +563,7 @@ export const IDL: WalletNftMint = {
         {
           "name": "mintingAccount",
           "isMut": true,
-          "isSigner": true
+          "isSigner": false
         },
         {
           "name": "initializer",
@@ -591,10 +587,6 @@ export const IDL: WalletNftMint = {
         }
       ],
       "args": [
-        {
-          "name": "nonceMinting",
-          "type": "u8"
-        },
         {
           "name": "authorizedCreator",
           "type": "publicKey"
