@@ -417,6 +417,13 @@ pub struct CreateOriginalList<'info> {
     init,
     payer = admin,
     space = 8 + 32 * 3 + 8,
+    seeds = [
+        "nftminting".as_bytes(),
+        "originallist".as_bytes(),
+        minting_account.key().as_ref(),
+        user.as_ref(),
+    ],
+    bump,
     )]
     og_list: Account<'info, AccountList>,
 
