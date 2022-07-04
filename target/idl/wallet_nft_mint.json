@@ -397,7 +397,7 @@
         {
           "name": "userMintingCounterAccount",
           "isMut": true,
-          "isSigner": true
+          "isSigner": false
         },
         {
           "name": "systemProgram",
@@ -550,5 +550,8 @@
         ]
       }
     }
-  ]
+  ],
+  "metadata": {
+    "address": "BfkwLq6tGq2CFw24kQJK5ZxZfBMTnv8a4vKQq76pEpRk"
+  }
 }

@@ -397,7 +397,7 @@ export type WalletNftMint = {
         {
           "name": "userMintingCounterAccount",
           "isMut": true,
-          "isSigner": true
+          "isSigner": false
         },
         {
           "name": "systemProgram",
@@ -952,7 +952,7 @@ export const IDL: WalletNftMint = {
         {
           "name": "userMintingCounterAccount",
           "isMut": true,
-          "isSigner": true
+          "isSigner": false
         },
         {
           "name": "systemProgram",
