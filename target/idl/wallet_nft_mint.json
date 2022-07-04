@@ -505,7 +505,31 @@
       }
     },
     {
-      "name": "AccountList",
+      "name": "WhiteList",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "publicKey"
+          },
+          {
+            "name": "mintingAccount",
+            "type": "publicKey"
+          },
+          {
+            "name": "initializer",
+            "type": "publicKey"
+          },
+          {
+            "name": "count",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OriginalList",
       "type": {
         "kind": "struct",
         "fields": [

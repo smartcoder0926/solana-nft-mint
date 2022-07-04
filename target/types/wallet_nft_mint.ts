@@ -505,7 +505,31 @@ export type WalletNftMint = {
       }
     },
     {
-      "name": "accountList",
+      "name": "whiteList",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "publicKey"
+          },
+          {
+            "name": "mintingAccount",
+            "type": "publicKey"
+          },
+          {
+            "name": "initializer",
+            "type": "publicKey"
+          },
+          {
+            "name": "count",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "originalList",
       "type": {
         "kind": "struct",
         "fields": [
@@ -1060,7 +1084,31 @@ export const IDL: WalletNftMint = {
       }
     },
     {
-      "name": "accountList",
+      "name": "whiteList",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "publicKey"
+          },
+          {
+            "name": "mintingAccount",
+            "type": "publicKey"
+          },
+          {
+            "name": "initializer",
+            "type": "publicKey"
+          },
+          {
+            "name": "count",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "originalList",
       "type": {
         "kind": "struct",
         "fields": [
