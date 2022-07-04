@@ -373,6 +373,13 @@ pub struct CreateWhiteList<'info> {
     init,
     payer = admin,
     space = 8 + 32 * 3 + 8,
+    seeds = [
+        "nftminting",
+        "whitelist",
+        minting_account.key().as_ref(),
+        user.as_ref(),
+    ],
+    bump,
     )]
     wl_list: Account<'info, AccountList>,
 
