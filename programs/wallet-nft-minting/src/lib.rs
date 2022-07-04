@@ -383,7 +383,7 @@ pub struct CreateWhiteList<'info> {
     ],
     bump,
     )]
-    wl_list: Account<'info, AccountList>,
+    wl_list: Account<'info, WhiteList>,
 
     system_program: Program<'info, System>,
     token_program: Program<'info, Token>,
@@ -399,7 +399,7 @@ pub struct RemoveWhiteList<'info> {
     minting_account: Box<Account<'info, MintingAccount>>,
 
     #[account(mut, has_one = initializer, constraint = minting_account.key() == wl_list.minting_account)]
-    wl_list: Account<'info, AccountList>,
+    wl_list: Account<'info, WhiteList>,
 
     system_program: Program<'info, System>,
     token_program: Program<'info, Token>,
@@ -427,7 +427,7 @@ pub struct CreateOriginalList<'info> {
     ],
     bump,
     )]
-    og_list: Account<'info, AccountList>,
+    og_list: Account<'info, OriginalList>,
 
     system_program: Program<'info, System>,
     token_program: Program<'info, Token>,
@@ -443,7 +443,7 @@ pub struct RemoveOriginalList<'info> {
     minting_account: Box<Account<'info, MintingAccount>>,
 
     #[account(mut, has_one = initializer, constraint = minting_account.key() == og_list.minting_account)]
-    og_list: Account<'info, AccountList>,
+    og_list: Account<'info, OriginalList>,
 
     system_program: Program<'info, System>,
     token_program: Program<'info, Token>,
@@ -457,7 +457,15 @@ pub struct UserMintingAccount {
 }
 
 #[account]
-pub struct AccountList {
+pub struct WhiteList {
+    user: Pubkey,
+    minting_account: Pubkey,
+    initializer: Pubkey,
+    count: u64
+}
+
+#[account]
+pub struct OriginalList {
     user: Pubkey,
     minting_account: Pubkey,
     initializer: Pubkey,
@@ -499,10 +507,10 @@ pub struct MintNFT<'info> {
     pub minting_account: Box<Account<'info, MintingAccount>>,
 
     #[account(mut, constraint = minting_account.key() == wl_list.minting_account)]
-    wl_list: Account<'info, AccountList>,
+    wl_list: Account<'info, WhiteList>,
 
     #[account(mut, constraint = minting_account.key() == og_list.minting_account)]
-    og_list: Account<'info, AccountList>,
+    og_list: Account<'info, OriginalList>,
 
     /// CHECK: This is not dangerous because we don't read or write from this account
     #[account(
