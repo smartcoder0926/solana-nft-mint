@@ -17,7 +17,6 @@ pub mod wallet_nft_mint {
 
     pub fn initialize(
         ctx: Context<Initialize>,
-        _nonce_minting: u8,
         authorized_creator: Pubkey,
         max_supply: u64,
         og_max: u64,
@@ -311,15 +310,16 @@ pub mod wallet_nft_mint {
     }
 }
 #[derive(Accounts)]
-#[instruction(_nonce_minting: u8)]
 pub struct Initialize<'info> {
+
     #[account(
         init_if_needed,
         payer = initializer,
-        seeds = [ constants::MINTING_PDA_SEED.as_ref() ],
-        bump = _nonce_minting,
-        space = 8 + 32 * 3 + 8 * 8 + 1 + 8 + 50
-        // space = 308000
+        space = 8 + 32 * 3 + 8 * 8 + 1 + 8 + 50,
+        seeds = [
+            "wallet_nft_minting".as_bytes(),
+        ],
+        bump,
     )]
     pub minting_account: Box<Account<'info, MintingAccount>>,
 
