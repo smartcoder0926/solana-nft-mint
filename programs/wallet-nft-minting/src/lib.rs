@@ -43,17 +43,45 @@ pub mod wallet_nft_mint {
     }
 
     #[access_control(is_admin(&ctx.accounts.minting_account, &ctx.accounts.admin))]
+    pub fn add_og_list(
+        ctx: Context<CreateOriginalList>,
+        user: Pubkey,
+    ) -> ProgramResult {
+        
+        let og_list = &mut ctx.accounts.og_list;
+
+        og_list.user = user;
+        og_list.minting_account = ctx.accounts.minting_account.key();
+        og_list.initializer = ctx.accounts.admin.key();
+        og_list.count = 1;
+
+        Ok(())
+    }
+
+    #[access_control(is_admin(&ctx.accounts.minting_account, &ctx.accounts.initializer))]
+    pub fn remove_og_list(
+        ctx: Context<RemoveOriginalList>,
+    ) -> ProgramResult {
+
+        ctx.accounts
+                .og_list
+                .close(ctx.accounts.initializer.to_account_info())?;
+
+        Ok(())
+    }
+
+    #[access_control(is_admin(&ctx.accounts.minting_account, &ctx.accounts.admin))]
     pub fn add_wl_list(
         ctx: Context<CreateWhiteList>,
         user: Pubkey,
     ) -> ProgramResult {
         
-        let whitelist = &mut ctx.accounts.whitelist;
+        let wl_list = &mut ctx.accounts.wl_list;
 
-        whitelist.user = user;
-        whitelist.minting_account = ctx.accounts.minting_account.key();
-        whitelist.initializer = ctx.accounts.admin.key();
-        whitelist.count = 1;
+        wl_list.user = user;
+        wl_list.minting_account = ctx.accounts.minting_account.key();
+        wl_list.initializer = ctx.accounts.admin.key();
+        wl_list.count = 1;
 
         Ok(())
     }
@@ -64,7 +92,7 @@ pub mod wallet_nft_mint {
     ) -> ProgramResult {
 
         ctx.accounts
-                .whitelist
+                .wl_list
                 .close(ctx.accounts.initializer.to_account_info())?;
 
         Ok(())
@@ -145,7 +173,13 @@ pub mod wallet_nft_mint {
 
         if ctx.accounts.minting_account.cur_stage == 1 {
 
-            if ctx.accounts.whitelist.count == 1 {
+            if ctx.accounts.og_list.count == 1 {
+                _max_num = ctx.accounts.minting_account.og_max;
+                _price = ctx.accounts.minting_account.og_price;
+                _state = 1; // OG
+            }
+
+            if ctx.accounts.wl_list.count == 1 {
                 _max_num = ctx.accounts.minting_account.wl_max;
                 _price = ctx.accounts.minting_account.wl_price;
                 _state = 1; // WL
@@ -340,7 +374,7 @@ pub struct CreateWhiteList<'info> {
     payer = admin,
     space = 8 + 32 * 3 + 8,
     )]
-    whitelist: Account<'info, WhiteList>,
+    wl_list: Account<'info, AccountList>,
 
     system_program: Program<'info, System>,
     token_program: Program<'info, Token>,
@@ -355,8 +389,45 @@ pub struct RemoveWhiteList<'info> {
     #[account(mut)]
     minting_account: Box<Account<'info, MintingAccount>>,
 
-    #[account(mut, has_one = initializer, constraint = minting_account.key() == whitelist.minting_account)]
-    whitelist: Account<'info, WhiteList>,
+    #[account(mut, has_one = initializer, constraint = minting_account.key() == wl_list.minting_account)]
+    wl_list: Account<'info, AccountList>,
+
+    system_program: Program<'info, System>,
+    token_program: Program<'info, Token>,
+    rent: Sysvar<'info, Rent>,
+}
+
+#[derive(Accounts)]
+#[instruction(user: Pubkey)]
+pub struct CreateOriginalList<'info> {
+    #[account(mut)]
+    admin: Signer<'info>,
+    
+    #[account(mut)]
+    minting_account: Box<Account<'info, MintingAccount>>,
+
+    #[account(
+    init,
+    payer = admin,
+    space = 8 + 32 * 3 + 8,
+    )]
+    og_list: Account<'info, AccountList>,
+
+    system_program: Program<'info, System>,
+    token_program: Program<'info, Token>,
+    rent: Sysvar<'info, Rent>,
+}
+
+#[derive(Accounts)]
+pub struct RemoveOriginalList<'info> {
+    #[account(mut)]
+    initializer: Signer<'info>,
+    
+    #[account(mut)]
+    minting_account: Box<Account<'info, MintingAccount>>,
+
+    #[account(mut, has_one = initializer, constraint = minting_account.key() == og_list.minting_account)]
+    og_list: Account<'info, AccountList>,
 
     system_program: Program<'info, System>,
     token_program: Program<'info, Token>,
@@ -370,7 +441,7 @@ pub struct UserMintingAccount {
 }
 
 #[account]
-pub struct WhiteList {
+pub struct AccountList {
     user: Pubkey,
     minting_account: Pubkey,
     initializer: Pubkey,
@@ -411,8 +482,11 @@ pub struct MintNFT<'info> {
     )]
     pub minting_account: Box<Account<'info, MintingAccount>>,
 
-    #[account(mut, constraint = minting_account.key() == whitelist.minting_account)]
-    whitelist: Account<'info, WhiteList>,
+    #[account(mut, constraint = minting_account.key() == wl_list.minting_account)]
+    wl_list: Account<'info, AccountList>,
+
+    #[account(mut, constraint = minting_account.key() == og_list.minting_account)]
+    og_list: Account<'info, AccountList>,
 
     /// CHECK: This is not dangerous because we don't read or write from this account
     #[account(
